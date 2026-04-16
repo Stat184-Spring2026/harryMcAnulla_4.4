@@ -1,0 +1,235 @@
+---
+title: "HW 4.3"
+date: "4/8/2026"
+author: "Harry McAnulla"
+format: 
+  pdf: 
+    echo: false
+    warning: false
+    message: false
+editor: visual
+---
+
+## Busiest Airports
+
+```{r}
+#| label: tbl-airports
+#| tbl-cap: "Passenger Traffic (Millions) for Six of the World's Busiest Airports, 2020–2025"
+
+source("Airports.R")
+library(kableExtra)
+
+airports_table %>%
+  kable(
+    col.names = c("Airport", "2020", "2021", "2022", "2023", "2024", "2025"),
+    align = "c"
+  ) %>%
+  kable_styling(full_width = FALSE, position = "center")
+
+```
+
+```{r}
+#| label: fig-airports
+#| fig-cap: "Figure 1: Passenger traffic trends for six major international airports from 2020 to 2025, showing recovery after the COVID-19 pandemic."
+
+source("Airports.R")
+airport_plot
+
+```
+
+@tbl-airports summarizes passenger traffic (in millions) for six of the busiest airports in the world from 2020 through 2025, while Figure @fig-airports visualizes these trends over time.
+
+Several important patterns emerge from these visualizations. All airports show a decline in passenger traffic in 2020, followed by steady recovery through 2023. This is consistent with the COVID-19 pandemic, which significantly reduced air travel before a recovery.
+
+Among the airports, ATL consistently remains the busiest, surpassing 100 million passengers by 2023 and continuing to grow through 2025. In contrast, airports such as FRA and LHR show slower recovery, with lower passenger volumes in the earlier years and more gradual increases over time.
+
+Overall, both the table and the figure demonstrate not only the scale of global air travel but also how different airports recovered at different rates following the major, global pandemic of 2020.
+
+## Monte Carlo Numerical Integration
+
+```{r}
+#| label: fig-montecarlo
+#| fig-cap: "Monte Carlo simulation that estimates the area under the standard normal curve from -3 to 3 using increasing # of sample sizes."
+#| layout-ncol: 2
+#| fig-pos: H
+#| fig-subcap: 
+#| - "n = 100"
+#| - "n = 500"
+#| - "n = 1000"
+#| - "n = 5000"
+
+source("MonteCarloSimulation.R")
+run_simulation(100)
+run_simulation(500)
+run_simulation(1000)
+run_simulation(5000)
+
+
+```
+
+@fig-montecarlo displays a set of four Monte Carlo simulations used to estimate the area under the standard normal curve between -3 and 3. Each panel corresponds to a different number of simulated points (n = 100, 500, 1000, and 5000), which helps us observe how the estimate improves as the sample size increases.
+
+The Monte Carlo method works by randomly sampling points within a rectangular region that bounds the function and computing the proportion of points that fall below the curve. This proportion is then multiplied by the area of the rectangle to estimate the integral. In this case, the rectangle spans from -3 to 3 on the x-axis and from 0 to 0.5 on the y-axis.
+
+The exact value of this integral is the probability that a standard normal random variable lies between -3 and 3, approximately 0.9973.
+
+As shown in @fig-montecarlo, the estimate becomes more stable and closer to the true value as the number of simulated points increases. For smaller sample sizes, such as n = 100, the estimate varies more due to randomness. However, by n = 5000, the points more densely fill the region and the estimate closely approximates the true value.
+
+This visual pattern demonstrates how increasing the number of simulations improves accuracy, illustrating the law of large numbers and reinforcing why Monte Carlo methods are effective for numerical integration.
+
+## Planning and Prompting GenAI
+
+### Plan
+
+Goal: To transform the calcium.csv dataset into a tidy dataset where each row is one observation, each column is one variable, and each value is one measurement. We will need variables for time, group/treatment, measurement value, and a unique subject/observation ID.
+
+Nouns: ID, group, time, value
+
+Verbs: Rename, separate, pivot, mutate, arrange, add ID
+
+Steps:
+
+1.  Add an ID column
+
+2.  Understand column structure
+
+3.  Pivot to long format
+
+4.  Extract time and group
+
+5.  Clean variables
+
+6.  Drop messy columns
+
+7.  Arrange Data
+
+![Figure 1: Structured ChatGPT Output](structuredPrompt.png) Figure 1: Visualization produced using this structured plan.
+
+### ChatGPT Response:
+
+Alright — now that we know how the data should be structured, let’s actually visualize it properly.
+
+I’ll give you a clean R (tidyverse + ggplot2) solution since that’s what your earlier work used.
+
+📊 Step 1: Full Code (read → tidy → plot): \[provided at the end of the doc\] 📈 What This Plot Shows X-axis: Time (0, 1, 2, 3) Y-axis: Calcium measurement Lines: One per group (Group 1 vs Group 2) Points: Mean calcium at each time
+
+👉 This is a mean trend plot, which is usually what you want for repeated measurements.
+
+![Figure 2: Generic ChatGPT Output](chatgptPlot.png) Figure 2. Visualization produced using a generic prompt without a structured plan.
+
+### ChatGPT Response (Given):
+
+I created a visualization showing the average value of each column in your dataset. What this shows: • Each point represents the mean (average) of one column (y0, y1, y2, y3, etc.). • You can quickly compare which variables tend to have higher or lower values overall. • For example, some columns cluster around \~70–73, while others drop closer to \~65.
+
+If you want something more insightful, I can also create: • Boxplots (to show spread and outliers) • Time series plots (if rows represent time/order) • Correlation heatmaps • Side-by-side comparisons (e.g., y0 vs y0.1) Just tell me 👍 Prompt: What is your version information? You’re chatting with ChatGPT based on the GPT-5.3 architecture. Key details: • Model: GPT-5.3 • Knowledge cutoff: August 2025 • Current date (system): March 31, 2026 If you need more technical details (capabilities, differences vs GPT-4/5, etc.), just let me know 👍 (This chat took place on Tuesday, March 31st, 2026.)
+
+### Comparison between a structured vs non-structured plan
+
+The plan-informed response produced a clearer and more meaningful visualization than the generic prompt. By first outlining how to tidy the data, the plan ensured that time and group were correctly represented as variables, which made it possible to accurately compare trends between the null and treatment groups.
+
+In contrast, the generic prompt did not fully account for the structure of the dataset. Without a clear plan, it treated the data more superficially, leading to a visualization that was less effective at showing how calcium levels change over time or differ between groups.
+
+Overall, the plan-informed approach resulted in a more accurate and interpretable visualization. This shows that providing structure and context to a gen AI tool leads to better and more useful outputs than relying on a generic prompt.
+
+## Reflection
+
+### Planning
+
+The first important idea of Stat 184 is structure through planning. I learned a lot more about how I should write my code and think about how I'm doing it before I even start. Planning helped me better understand my code, as well as the best ways to structure it before going in headfirst. I also learned a lot about improving and polishing my code, all very important and necessary tools for writing code and fully understanding datasets.
+
+### Data Wrangling
+
+This segment of the course was incredibly useful to me, as I have never really worked with data in this way and always found it important to learn how to extract and clean data. This was a great building block for other data manipulation techniques we'd learn later in the course.
+
+### Data Analysis
+
+This chapter helped me learn more about data visualizations and how to better create graphs and plots that people can understand and actually learn from. I think this chapter was the most helpful for me as I am more of a visual learner, so seeing the actual products of the code we were writing allowed me to better understand what I was writing and the purpose of it all.
+
+### Reproducible Work
+
+We are still early into this chapter, but I am already understanding a lot and enjoying it a lot more than previous chapters. I have never worked with Quarto so it is definitely new, but it is very interesting and will continue to be useful further down the line.
+
+## Appendices
+
+### GenAI Usage Appendix: Structured Plan
+
+-   **Tool Used:** ChatGPT
+
+-   **Date:** April 9, 2026
+
+-   **Prompt:** (Plan from segment: "Planning and Prompting GenAI"), use this planning information to wrangle the data and generate a line plot showing mean calcium levels over time by group.
+
+-   **Response:** Code \[provided in the code appendix\] that wrangled, tidied, and generated a line plot, which I downloaded and pasted as an image.
+
+### Code Appendix
+
+```{r}
+#| echo: true
+#| eval: false
+# This appendix contains all code used in the document
+
+# -------------------------------
+# Load libraries
+# -------------------------------
+library(tidyverse)
+library(kableExtra)
+
+# -------------------------------
+# Airports Table
+# -------------------------------
+source("Airports.R")
+
+airports_table %>%
+  kable() %>%
+  kable_styling()
+
+# -------------------------------
+# Airports Plot
+# -------------------------------
+airport_plot
+
+# -------------------------------
+# Monte Carlo Simulation
+# -------------------------------
+source("MonteCarloSimulation.R")
+
+run_simulation(100)
+run_simulation(500)
+run_simulation(1000)
+run_simulation(5000)
+
+#--------------------------------
+# ChatGPT generated code for wrangling, tidying, and creating the plot
+#--------------------------------
+library(tidyverse)
+
+# Load data
+calcium <- read_csv("calcium.csv")
+
+# Tidy the data
+calcium_tidy <- calcium %>%
+  mutate(id = row_number()) %>%
+  pivot_longer(
+    cols = starts_with("y"),
+    names_to = "variable",
+    values_to = "value"
+  ) %>%
+  mutate(
+    group = if_else(str_detect(variable, "\\.1"), "Group 2", "Group 1"),
+    time = str_extract(variable, "\\d+") %>% as.numeric()
+  ) %>%
+  select(id, group, time, value)
+
+# Visualization
+ggplot(calcium_tidy, aes(x = time, y = value, color = group)) +
+  stat_summary(fun = mean, geom = "line", linewidth = 1) +
+  stat_summary(fun = mean, geom = "point", size = 2) +
+  labs(
+    title = "Calcium Levels Over Time by Group",
+    x = "Time",
+    y = "Calcium Level",
+    color = "Group"
+  ) +
+  theme_minimal()
+
+```
