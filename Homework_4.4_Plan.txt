@@ -1,0 +1,76 @@
+PLAN: Homework 4.3
+Goal
+Produce a fully‑rendered Quarto PDF that meets all HW 4.3 requirements: Demonstrate planning, GenAI prompting, and reflection in a structured format.
+
+NEEDS:
+RStudio Project dedicated to HW 4.3
+A .qmd file with correct YAML header
+Data and code from HW 3.4 (airports + Monte Carlo)
+Access to Quarto Crash Course
+Provided “generic prompt” output for the GenAI comparison
+A GenAI tool
+Ability to render to PDF
+Appendices for GenAI usage and code
+
+STEPS:
+1. Review assignment instructions and create the Quarto document with a proper YAML header (title, author, date, PDF format).
+
+2. Set up the document structure for Busiest Airports Analysis, Monte Carlo Numerical Integration, Planning & Prompting GenAI Tools,
+
+Reflection, Appendices.
+
+3. Import HW 4.3 content: Bring in the busiest airports table, plot, and narrative.
+
+4. Bring in the Monte Carlo simulation code and recreate the small‑multiple visualization.
+
+5. Improve clarity and organization.
+
+6. Write narrative text for each section, ensuring no code appears in the main body.
+
+7. Complete the GenAI planning section by writing a step‑by‑step plan for tidying, wrangling, and plotting.
+
+8. Use that plan as a prompt to a GenAI tool and insert the provided “generic prompt” output.
+
+9. Write a comparison narrative between the two outputs.
+
+10. Write the Reflection section with specific examples from the course.
+
+11. Build the appendices for GenAI Usage Appendix and Code Appendix.
+
+12. Render the document to PDF and verify.
+
+13. Submit the PDF to Canvas.
+
+PLAN 2 — GitHub Repo Setup & Maintenance
+Goal(s)
+Create a clean, organized GitHub repository for HW 4.3 Ensure the repo contains all required files (README, planning doc, .qmd, data, final PDF).
+
+Needs
+GitHub Desktop installed
+A new GitHub repository
+Clear folder structure
+README.md
+planning.txt
+.qmd file and rendered PDF
+.gitignore for RStudio clutter
+
+Steps
+1. Create a new GitHub repo for HW 4.3.
+
+2. Clone the repo to my computer using GitHub Desktop.
+
+3. Open the repo folder and create a clean structure.
+
+4. Add assignment files (Quarto file, rendered pdf, planning doc, README)
+
+5. Write a simple README describing:
+Purpose of the repo
+How to render the .qmd
+Folder structure
+Requirements
+
+6. Commit changes regularly with clear messages.
+
+7. Push commits to GitHub after each major change.
+
+8. Update README if the project structure or instructions change.
